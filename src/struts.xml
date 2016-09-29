@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+
+<struts>
+	<package name="helloworld" extends="struts-default" namespace="/day01"> 
+		<action name="nameform" class="com.tarena.outman.WelcomeAction"> 
+			<result name="success">/WEB-INF/jsp/nameform.jsp</result>
+		</action>
+		<action name="welcome" class="com.tarena.outman.WelcomeAction"> 
+			<result name="success">/WEB-INF/jsp/welcome.jsp</result>
+	 		<result name="fail">/WEB-INF/jsp/nameform.jsp</result> 
+		</action>
+		<action name="projectlist" class="com.tarena.outman.ProjectListAction"> 
+			<param name="rowsPerPage">3</param>
+			<result name="success">/WEB-INF/jsp/projectlist.jsp</result>
+	 		<result name="fail">/WEB-INF/jsp/nameform.jsp</result> 
+		</action>
+	</package>
+	<package name="valuestack" extends="struts-default" namespace="/day02">
+		<action name="debug" class="com.tarena.outman.DebugAction">
+			<result name="success">/WEB-INF/jsp/day02/debug.jsp</result>
+		</action>
+	</package>
+	<package name="core" extends="json-default" namespace="/day03">
+		<action name="loginform" class="com.tarena.ActionFunc.LoginAction" method="form">
+			<result name="success">
+				/WEB-INF/jsp/day03/loginform.jsp
+			</result>
+		</action>
+		<action name="login" class="com.tarena.ActionFunc.LoginAction" method="login">
+			<result name="success">
+				/WEB-INF/jsp/day03/main.jsp
+			</result>
+			<result name="fail">
+				/WEB-INF/jsp/day03/loginform.jsp
+			</result>
+		</action>
+		<action name="param" class="com.tarena.ActionFunc.ParamAction">
+			<param name="param1">ABC</param>
+			<param name="param2">10</param>
+		</action>
+		<action name="user" class="com.tarena.ActionFunc.UserAction">
+			<result name="success" type="dispatcher">
+				/WEB-INF/jsp/day03/user.jsp?userId=${user.userId}
+			</result>
+		</action>
+		<action name="result" class="com.tarena.ActionFunc.ResultAction">
+			<result name="success" type="redirect">
+				/day03/user.action
+			</result>
+		</action>
+		<action name="result2" class="com.tarena.ActionFunc.ResultAction">
+			<result name="success" type="redirectAction">
+				user
+			</result>
+		</action>
+		<action name="result3" class="com.tarena.ActionFunc.ResultAction">
+			<result name="success" type="dispatcher">
+				/WEB-INF/jsp/day03/result.jsp
+			</result>
+		</action>
+		<action name="result4" class="com.tarena.ActionFunc.ResultAction">
+			<result name="success" type="json">
+			</result>
+		</action>
+		<action name="submit">
+			<result>/WEB-INF/jsp/day03/one.jsp</result>
+		</action>
+	</package>
+	<package name="tong" extends="struts-default" namespace="/day3">
+		<action name="*_*_*" class="com.tarena.ActionFunc.{1}Action" method="{2}">
+			<result name="success">
+				/WEB-INF/jsp/day03/{3}.jsp
+			</result>
+		</action>
+		<action name="One_f_one" class="com.tarena.ActionFunc.OneAction">
+			<result name="success">
+				/WEB-INF/jsp/day03/one.jsp
+			</result>
+		</action>
+	</package>
+	<package name="advance" extends="struts-default" namespace="/ui">
+		<interceptors>
+			<interceptor name="some" class="com.tarena.interceptor.SomInterceptor" />
+		</interceptors>
+		<action name="uploadform">
+			<interceptor-ref name="basicStack" />
+			<result name="success">
+				/WEB-INF/jsp/day04/uploadform.jsp
+			</result>
+		</action>
+		<action name="upload" class="com.tarena.interceptor.UploadAction">
+			<interceptor-ref name="fileUpload" >
+				<param name="maximunSize">102400</param>
+			</interceptor-ref>
+			<interceptor-ref name="basicStack" />
+			<result name="success">
+				/WEB-INF/jsp/day04/uploadimage.jsp
+			</result>
+		</action>
+		<action name="uitag" class="com.tarena.ui.UITagAction" method="form">
+			<interceptor-ref name="some" />
+			<result name="success">/WEB-INF/jsp/day04/uitag.jsp</result>
+		</action>
+		<action name="submit" class="com.tarena.ui.UITagAction" method="submit">
+			<result>/WEB-INF/jsp/day03/two.jsp</result>
+		</action>
+		<action name="res" class="com.tarena.international.ResAction">
+			<result name="success">
+				/WEB-INF/jsp/day05/res.jsp
+			</result>
+		</action>
+	</package>
+	<package name="tagTest" extends="struts-default" namespace="/tag">
+		<action name="tag" class="com.tarena.tag.TagAction">
+			<result name="success">
+				/WEB-INF/jsp/day05/tag.jsp
+			</result>
+		</action>
+	</package>
+</struts>
